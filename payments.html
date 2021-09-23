@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <script
+    src="https://kit.fontawesome.com/b862bb0d81.js" crossorigin="anonymous"></script>
+
+    <!-- CSS only -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FoodApp</title>
+        <link rel="stylesheet" href="foodApp.css" />
+        <script src="https://kit.fontawesome.com/b862bb0d81.js" crossorigin="anonymous"></script>
+    
+
+    <style>
+      .body{
+        background-color: white;
+      }
+      section.Form{
+        width: 50%;
+        margin: 10%;
+        margin-top: 5%;
+      }
+      section.payments{
+        width: 50%;
+        margin: 10%;
+        margin-top: 5%;
+      }
+    </style>
+
+</head>
+<body>
+
+
+<section class="Form">
+  <h3>Biling Details</h3>
+  <div class="mb-3">
+    <label class="form-label">First and Last name</label>
+    <input class="form-control" type="text" id="name" onclick="validation()">
+    <span id="username" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileMultiple" class="form-label">Email Address</label>
+    <input class="form-control" type="email" id="emailid" onclick="validation()">
+    <span id="emailId" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileDisabled" class="form-label">Country</label>
+    <input class="form-control" type="text" id="country"  onclick="validation()">
+    <span id="Country" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileSm" class="form-label">State</label>
+    <input class="form-control form-control-sm" id="state" type="text" onclick="validation()">
+    <span id="State" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileLg" class="form-label">ZIP Code</label>
+    <input class="form-control form-control-lg" id="zip" type="text" onclick="validation()">
+    <span id="Zip" class="text-danger font-weight-bold" ></span>
+  </div>
+
+  <button  class="btn btn-outline-success"  type="submit" onload="reloadTaslCard">Submit</button>
+  
+</section>
+
+
+<section class="payments">
+  <h3>Payment Method</h3>
+  <div class="mb-3">
+    <label class="form-label"></label>
+    <option>
+      <li>
+        <ul>Credit Card</ul>
+        <ul>Debit Card</ul>
+      </li>
+    </option>
+    <input class="form-control" type="text" id="name" onclick="validation()">
+    <span id="username" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileMultiple" class="form-label">Card Number</label>
+    <input class="form-control" type="number" id="number" onclick="validation()">
+    <span id="emailId" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileDisabled" class="form-label">Expiration Date</label>
+    <input class="form-control" type="date" id="date"  onclick="validation()">
+    <span id="Country" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileSm" class="form-label">Security Code</label>
+    <input class="form-control form-control-sm" id="code" type="password" onclick="validation()">
+    <span id="State" class="text-danger font-weight-bold" ></span>
+  </div>
+  <div class="mb-3">
+    <label for="formFileLg" class="form-label">Amount </label>
+    <input class="form-control form-control-lg" id="money" type="number" onclick="validation()">
+    <span id="Zip" class="text-danger font-weight-bold" ></span>
+  </div>
+
+  <button  class="btn btn-outline-success"  type="submit">Place Order</button>
+  
+</section>
+
+
+
+
+<script type="text/javascript">
+
+  let ValidationTask =[];
+
+    function validation(){
+
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('emailid').value;
+      var country = document.getElementById('country').value;
+      var state = document.getElementById('state').value;
+      var zip = document.getElementById('zip').value;
+
+      if (name == ""){
+        document.getElementById('name').innerHTML = " ** Please fill the name ";
+        return false;
+      }
+
+      if (emailid == ""){
+        document.getElementById('emailid').innerHTML = " ** Please fill the email ";
+        return false;
+      }
+
+      if (country == ""){
+        document.getElementById('country').innerHTML = " ** Please fill the country ";
+        return false;
+      }
+
+      if (state == ""){
+        document.getElementById('state').innerHTML = " ** Please fill the state ";
+        return false;
+      }
+
+      if (zip == ""){
+        document.getElementById('zip').innerHTML = " ** Please fill the zip code ";
+        return false;
+      }
+
+     ValidationTask.push(validation);
+     saveToLocalStorage();
+    }
+
+    const saveToStorage = () => {
+     localstorage.setItem("paymentsdetails", JSON.stringify({payment:ValidationTask}));
+ }
+
+ const reloadTaskCard = () => {
+     const localStorage = JSON.parse(localstorage.getItem("payment"));
+     console.log(localStorage);
+     if(localStorage) {
+         globalTaskData = localStorage["paymentsdetails"];
+     }
+     console.log(globalTaskData)
+     ValidationTask.map((Data) => {
+         taskContents.insertAdjacentHTML('beforeend',ValidationTask(Data));
+     })
+ }
+ 
+
+
+</script>
+
+<script src="foodApp.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+</body>
+</html>
